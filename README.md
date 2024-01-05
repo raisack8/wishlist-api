@@ -1,4 +1,5 @@
-## Fast api は型ヒントが特徴的
+# FRONTのリポジトリはこちら
+https://github.com/raisack8/wishlist-front
 
 .venv/Scripts/activate
 
