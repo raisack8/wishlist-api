@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.apis import (
+    health,
     item,
     saving
     )
@@ -22,6 +23,8 @@ app.add_middleware(
 )
 
 # app.include_router(test_api.router, tags=["tests"])
+
+app.include_router(health.router, tags=["health"])
 
 app.include_router(item.router, tags=["item"])
 app.include_router(saving.router, tags=["saving"])
