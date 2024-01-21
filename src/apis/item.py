@@ -5,6 +5,7 @@ from ..models.database import get_db
 from ..schemas.requests.item_register import PReqItemRegister
 from ..schemas.response.item_list_get import GItemGetList
 from ..services.item import ServiceItem
+from ..services.user import UserCrud
 
 router = APIRouter()
 
@@ -25,17 +26,18 @@ async def register_item(
     return result
 
 @router.get(
-        "/item/list-get/{user_id}",
+        "/item/list-get/{sub}",
         response_model=list[GItemGetList],
         # response_model=None,
         description="itemリストを取得",
         )
 async def read_item(
-    user_id: int,
+    sub: str,
     db: Session = Depends(get_db),
 ):
+    uuid = UserCrud.get_uuid_by_sub(db, sub)
     result = ServiceItem.item_list_get(
         db,
-        user_id
+        uuid
     )
     return result

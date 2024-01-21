@@ -5,6 +5,7 @@ from ..models.database import get_db
 from ..schemas.requests.saving import PSavingHistory
 from ..schemas.response.saving import GSavingHistoryList
 from ..services.saving import ServiceSaving
+from ..services.user import UserCrud
 
 router = APIRouter()
 
@@ -39,16 +40,17 @@ async def get_saving_history_list(
     return result
 
 @router.get(
-        "/saving/amount/{user_id}",
+        "/saving/amount/{sub}",
         response_model=int,
         description="合計貯金額を取得",
         )
 async def get_saving_amount(
-    user_id: int,
+    sub: str,
     db: Session = Depends(get_db),
 ):
+    uuid = UserCrud.get_uuid_by_sub(db, sub)
     result = ServiceSaving.get_saving_amount(
         db,
-        user_id
+        uuid
     )
-    return result
+    return result if result else 0

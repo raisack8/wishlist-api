@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.apis import (
     health,
     item,
-    saving
+    saving,
+    user
     )
 
 app = FastAPI()
@@ -28,3 +29,4 @@ app.include_router(health.router, tags=["health"])
 
 app.include_router(item.router, tags=["item"])
 app.include_router(saving.router, tags=["saving"])
+app.include_router(user.router, tags=["user"])

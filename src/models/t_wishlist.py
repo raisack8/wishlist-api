@@ -6,6 +6,7 @@ class TWishlist(Base, OrgBaseModel):
     __tablename__ = "t_wishlist"
 
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    uuid = Column(String, index=True, nullable=False)
     title = Column(String, index=True, nullable=False)
     category = Column(String, index=True, nullable=False)
     price = Column(Integer, nullable=True, index=True)

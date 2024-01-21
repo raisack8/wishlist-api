@@ -9,7 +9,7 @@ class SavingCrud:
     def create_saving_table(
             db: AsyncSession, 
             data: PSavingHistory
-            ) -> None:
+            ) -> bool:
         try:
             db_amount = TSavingHistory(
                 amount = data.amount,
@@ -38,17 +38,17 @@ class SavingCrud:
         except Exception as e:
             print(e)
             db.rollback()
-            return False
+            return []
         
     def select_saving_table_amount(
             db: AsyncSession, 
-            user_id: int
+            uuid: str
         ):
         try:
             total_amount = db.query(
                     func.sum(TSavingHistory.amount)
                 ).filter(
-                    TSavingHistory.user_id == user_id
+                    TSavingHistory.uuid == uuid
                 ).scalar()
             return total_amount
         except Exception as e:

@@ -29,7 +29,7 @@ class ItemCrud:
         
     def select_item_table_list(
             db: AsyncSession, 
-            user_id: int
+            uuid: int
             ):
         try:
             items = db.query(
@@ -39,7 +39,7 @@ class ItemCrud:
                     TWishlist.category,
                     TWishlist.image_url,
                 ).filter(
-                    TWishlist.user_id == user_id
+                    TWishlist.uuid == uuid
                 )[:10]
             return items
         except Exception as e:

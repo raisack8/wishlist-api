@@ -19,6 +19,6 @@ class ServiceSaving:
 
     def get_saving_amount(
             db: AsyncSession, 
-            data: int
+            uuid: str
             ):
-        return SavingCrud.select_saving_table_amount(db, data)
+        return SavingCrud.select_saving_table_amount(db, uuid)
