@@ -13,12 +13,12 @@ class ServiceSaving:
     
     def get_saving_history_list(
             db: AsyncSession, 
-            data: int
+            sub: str
             ):
-        return SavingCrud.select_saving_table(db, data)
+        return SavingCrud.select_saving_table(db, sub)
 
     def get_saving_amount(
             db: AsyncSession, 
-            uuid: str
+            sub: str
             ):
-        return SavingCrud.select_saving_table_amount(db, uuid)
+        return SavingCrud.select_saving_table_amount(db, sub)

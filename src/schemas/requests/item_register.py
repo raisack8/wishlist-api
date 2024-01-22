@@ -6,6 +6,7 @@ class ECategory(int, Enum):
     TRIP = 2
 
 class PReqItemRegister(BaseModel):
+    sub: str
     title: str
     price: int
     category: ECategory
