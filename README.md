@@ -16,3 +16,20 @@ uvicorn main:app --reload --host 192.168.0.18 --port 8000
 
 ## タスクはこちらで管理
 https://github.com/users/raisack8/projects/3/views/1
+
+
+
+# レコード作成例。テストデータをこうやって追加しよう
+ses.add(Shohin(shohin_no = 1, name='アイス', price=280))
+ses.add(Shohin(shohin_no = 2, name='ケーキ', price=350))
+ses.add(Shohin(shohin_no = 3, name='パフェ', price=780))
+ses.add(Shohin(shohin_no = 4, name='モンブラン', price=420))
+
+ses.add(Zaiko(shop_no = 1, shohin_no = 1, suryo = 30))
+ses.add(Zaiko(shop_no = 1, shohin_no = 2, suryo = 20))
+ses.add(Zaiko(shop_no = 1, shohin_no = 3, suryo = 15))
+ses.add(Zaiko(shop_no = 2, shohin_no = 1, suryo = 40))
+ses.add(Zaiko(shop_no = 2, shohin_no = 2, suryo = 10))
+ses.add(Zaiko(shop_no = 2, shohin_no = 3, suryo = 25))
+# コミット
+ses.commit()
