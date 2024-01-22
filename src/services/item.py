@@ -14,9 +14,9 @@ class ServiceItem:
     
     def item_list_get(
             db: AsyncSession, 
-            uuid: str
+            sub: str
             ):
-        items = ItemCrud.select_item_table_list(db, uuid)
+        items = ItemCrud.select_item_table_list(db, sub)
         if not items:
             return []
         result = [{

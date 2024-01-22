@@ -18,7 +18,6 @@ async def register_item(
     data: PReqItemRegister,
     db: Session = Depends(get_db),
 ) -> str:
-    print(f"item_register, {data.title}, {data.price}, {data.category}, {data.memo},")
     result = ServiceItem.item_register(
         db,
         data
@@ -35,9 +34,8 @@ async def read_item(
     sub: str,
     db: Session = Depends(get_db),
 ):
-    uuid = UserCrud.get_uuid_by_sub(db, sub)
     result = ServiceItem.item_list_get(
         db,
-        uuid
+        sub
     )
     return result

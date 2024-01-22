@@ -25,17 +25,17 @@ async def saving_history(
     return f"item_register, {result}"
 
 @router.get(
-        "/saving/history_get/{user_id}",
+        "/saving/history_get/{sub}",
         response_model=list[GSavingHistoryList],
         description="貯金歴を取得",
         )
 async def get_saving_history_list(
-    user_id: int,
+    sub: str,
     db: Session = Depends(get_db),
 ):
     result = ServiceSaving.get_saving_history_list(
         db,
-        user_id
+        sub
     )
     return result
 
@@ -48,9 +48,8 @@ async def get_saving_amount(
     sub: str,
     db: Session = Depends(get_db),
 ):
-    uuid = UserCrud.get_uuid_by_sub(db, sub)
     result = ServiceSaving.get_saving_amount(
         db,
-        uuid
+        sub
     )
     return result if result else 0
