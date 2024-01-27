@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import func
+from sqlalchemy import func, select
 
 from ..models.t_saving_history import TSavingHistory
 from ..models.t_user import TUser
@@ -51,12 +51,13 @@ class SavingCrud:
             sub: str
         ):
         try:
-            total_amount = db.query(
-                    func.sum(TSavingHistory.amount)
-                ).filter(
-                    TUser.sub == sub
-                ).scalar()
-            return total_amount
+            result = db.execute(
+                    select(func.sum(TSavingHistory.amount))
+                    .join(TUser, TUser.uuid == TSavingHistory.uuid)  # JOIN条件
+                    .filter(TUser.sub == sub)
+                )
+            total_amount = result.scalar_one_or_none()
+            return total_amount if total_amount is not None else 0
         except Exception as e:
             print(e)
             db.rollback()

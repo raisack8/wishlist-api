@@ -11,3 +11,4 @@ class PReqItemRegister(BaseModel):
     price: int
     category: ECategory
     memo: str
+    image_url: str

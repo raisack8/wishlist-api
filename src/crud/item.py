@@ -23,6 +23,7 @@ class ItemCrud:
                 price = data.price,
                 category = data.category,
                 memo = data.memo,
+                image_url = data.image_url
             )
             db.add(db_item)
             db.commit()
