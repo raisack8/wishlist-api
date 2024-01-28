@@ -16,6 +16,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
     "http://192.168.0.18:3000",
+    "http://192.168.0.18:800",
 ]
 
 # CORSミドルウェアの設定

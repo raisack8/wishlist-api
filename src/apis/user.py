@@ -16,7 +16,6 @@ async def login_process(
     data: PLineLoginInfo,
     db: Session = Depends(get_db),
 ) -> str:
-    print(data)
     ServiceUser.login_process(
         db,
         data,
