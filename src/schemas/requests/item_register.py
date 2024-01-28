@@ -12,3 +12,11 @@ class PReqItemRegister(BaseModel):
     category: ECategory
     memo: str
     image_url: str
+
+class PReqItemUpdate(BaseModel):
+    id: int
+    title: str
+    price: int
+    category: ECategory
+    memo: str
+    image_url: str

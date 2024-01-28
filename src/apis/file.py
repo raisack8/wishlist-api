@@ -1,14 +1,13 @@
+import base64
 import shutil
 import os
 
+from typing import List
 from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-
-from ..models.database import get_db
-from ..schemas.requests.item_register import PReqItemRegister
-from ..schemas.response.item_list_get import GItemGetList
-from ..services.item import ServiceItem
-from ..services.user import UserCrud
+from cachetools import cached, TTLCache
+from ..services.file import ServiceFile
 
 router = APIRouter()
 
@@ -24,3 +23,21 @@ async def upload_file(upload_file: UploadFile = File(...)):
         shutil.copyfileobj(file_bytes, upload_dir)
         upload_dir.close()
         return {"filenames": upload_file.filename}
+    
+
+@cached(cache=TTLCache(maxsize=10, ttl=3000))
+@router.post(
+        "/file/get-files",
+        description="ファイルをダウンロード"
+        )
+async def get_file(body: List[str]):
+    return_dict = {}
+    file_path = os.path.join(os.getcwd(), r"resources")
+    for file_name in body:
+        if(file_name=='default.jpg'): continue
+        try:
+            return_dict[file_name] = ServiceFile.image_convert_to_binari(file_path, file_name)
+        except Exception as e:
+            print(e)
+            pass
+    return JSONResponse(content={"image_dict":return_dict})
