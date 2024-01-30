@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class PLineLoginInfo(BaseModel):
     sub: str
     name: str

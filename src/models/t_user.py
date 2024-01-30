@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime
 from .base import OrgBaseModel
 from .database import Base, engine
 
+
 class TUser(Base, OrgBaseModel):
     __tablename__ = "t_user"
 
@@ -13,5 +14,6 @@ class TUser(Base, OrgBaseModel):
     gender = Column(Integer, index=True)
     first_page_id = Column(String, index=True)
     # userテーブル定義について要検討
+
 
 Base.metadata.create_all(bind=engine)

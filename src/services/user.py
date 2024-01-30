@@ -5,14 +5,8 @@ from ..schemas.requests.user import PLineLoginInfo
 
 
 class ServiceUser:
-    def login_process(
-            db: AsyncSession, 
-            data: PLineLoginInfo
-            ):
+    def login_process(db: AsyncSession, data: PLineLoginInfo):
         UserCrud.login_process(db, data)
 
-    def get_uuid_by_sub(
-            db: AsyncSession, 
-            data: PLineLoginInfo
-            ):
+    def get_uuid_by_sub(db: AsyncSession, data: PLineLoginInfo):
         return UserCrud.get_uuid_by_sub(db, data)
