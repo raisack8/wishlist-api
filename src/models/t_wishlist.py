@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime
 from .base import OrgBaseModel
 from .database import Base, engine
 
+
 class TWishlist(Base, OrgBaseModel):
     __tablename__ = "t_wishlist"
 
@@ -16,5 +17,6 @@ class TWishlist(Base, OrgBaseModel):
     purchased_at = Column(DateTime, nullable=True, index=True)
     memo = Column(String, nullable=True, index=True)
     wish_rank = Column(Integer, nullable=True, index=True)
+
 
 Base.metadata.create_all(bind=engine)

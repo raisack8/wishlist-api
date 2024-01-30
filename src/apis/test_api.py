@@ -9,18 +9,17 @@ from ..services.test_service import ItemOperate
 
 router = APIRouter()
 
-@router.get(
-        "/",
-        summary="Hello Worldを返すだけ"
-        )
+
+@router.get("/", summary="Hello Worldを返すだけ")
 async def index():
     return {"message": "Hello World"}
 
+
 @router.get(
-        "/item",
-        response_model=Union[PItem, list[PItem]],
-        description="itemをidで参照。idを指定しなかったら全データ参照",
-        )
+    "/item",
+    response_model=Union[PItem, list[PItem]],
+    description="itemをidで参照。idを指定しなかったら全データ参照",
+)
 async def read_item(
     item_id: int = None,
     db: Session = Depends(get_db),
@@ -28,23 +27,17 @@ async def read_item(
     result = ItemOperate.select_item(db, item_id)
     return result
 
-@router.post(
-        "/item",
-        response_model=None,
-        description="itemを登録"
-        )
+
+@router.post("/item", response_model=None, description="itemを登録")
 async def register_item(
-    item: PReqData, 
+    item: PReqData,
     db: Session = Depends(get_db),
 ) -> None:
     ItemOperate.register_item(db, item)
     pass
 
-@router.put(
-        "/item",
-        response_model=None,
-        description="itemを変更・更新"
-        )
+
+@router.put("/item", response_model=None, description="itemを変更・更新")
 async def update_item(
     item_id: str,
     title: str = None,
@@ -54,11 +47,8 @@ async def update_item(
     ItemOperate.update_item(db, item_id, title, description)
     pass
 
-@router.delete(
-        "/item",
-        response_model=None,
-        description="itemを削除"
-        )
+
+@router.delete("/item", response_model=None, description="itemを削除")
 async def delete_item(
     item_id: str,
     db: Session = Depends(get_db),

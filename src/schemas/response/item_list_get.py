@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 
+
 class GItemGetList(BaseModel):
     id: int
     name: str
@@ -8,6 +9,7 @@ class GItemGetList(BaseModel):
     category: int
     image_url: Optional[str] = None
     memo: str
+
 
 class GItemGet(BaseModel):
     id: int
