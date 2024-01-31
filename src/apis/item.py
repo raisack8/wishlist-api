@@ -10,8 +10,13 @@ from ..services.user import UserCrud
 router = APIRouter()
 
 
-@router.post("/item/register", response_model=None, description="itemを登録")
-async def register_item(
+@router.post(
+    "/item/register",
+    response_model=None,
+    summary="/register",
+    description="ITEM登録API",
+)
+async def item_register(
     data: PReqItemRegister,
     db: Session = Depends(get_db),
 ) -> str:
@@ -19,8 +24,10 @@ async def register_item(
     return result
 
 
-@router.post("/item/update", response_model=None, description="itemを更新")
-async def update_item(
+@router.post(
+    "/item/update", response_model=None, summary="/update", description="ITEM更新API"
+)
+async def item_update(
     data: PReqItemUpdate,
     db: Session = Depends(get_db),
 ) -> str:
@@ -31,9 +38,10 @@ async def update_item(
 @router.get(
     "/item/list-get/{sub}",
     response_model=list[GItemGetList],
-    description="itemリストを取得",
+    summary="/list-get/{sub}",
+    description="ITEMリスト表示API",
 )
-async def read_item(
+async def item_list_get_by_sub(
     sub: str,
     db: Session = Depends(get_db),
 ):
@@ -44,9 +52,10 @@ async def read_item(
 @router.get(
     "/item/get/{item_id}",
     response_model=GItemGet,
-    description="特定のアイテムを取得",
+    summary="/get/{item_id}",
+    description="ITEM詳細情報API",
 )
-async def read_item(
+async def item_get_bt_item_id(
     item_id: str,
     db: Session = Depends(get_db),
 ):

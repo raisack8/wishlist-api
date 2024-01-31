@@ -9,7 +9,10 @@ router = APIRouter()
 
 
 @router.post(
-    "/user/login-process", response_model=None, description="ユーザーログイン処理"
+    "/user/login-process",
+    response_model=None,
+    summary="/login-process",
+    description="ユーザーログイン処理API",
 )
 async def login_process(
     data: PLineLoginInfo,
