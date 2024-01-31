@@ -12,6 +12,7 @@ from ..services.file import ServiceFile
 router = APIRouter()
 
 
+
 @router.post(
     "/file/upload",
     summary="/upload",
@@ -26,8 +27,9 @@ async def upload_file(upload_file: UploadFile = File(...)):
         upload_dir.close()
         return {"filenames": upload_file.filename}
 
-
+      
 @cached(cache=TTLCache(maxsize=10, ttl=3000))
+
 @router.post(
     "/file/get-files",
     summary="/get-files",
