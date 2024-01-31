@@ -2,9 +2,11 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
+
 @router.get(
-        "/health",
-        description="ヘルスチェック",
-        )
+    "/health",
+    summary="/",
+    description="ヘルスチェックAPI",
+)
 async def health_check():
     return "status is OK"

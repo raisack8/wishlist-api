@@ -33,3 +33,8 @@ ses.add(Zaiko(shop_no = 2, shohin_no = 2, suryo = 10))
 ses.add(Zaiko(shop_no = 2, shohin_no = 3, suryo = 25))
 # コミット
 ses.commit()
+
+# black整形
+```sh
+black .
+```

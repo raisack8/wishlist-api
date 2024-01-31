@@ -7,16 +7,17 @@ from ..schemas.requests.user import PLineLoginInfo
 
 router = APIRouter()
 
+
 @router.post(
-        "/user/login-process",
-        response_model=None,
-        description="ユーザーログイン処理"
-        )
+    "/user/login-process",
+    response_model=None,
+    summary="/login-process",
+    description="ユーザーログイン処理API",
+)
 async def login_process(
     data: PLineLoginInfo,
     db: Session = Depends(get_db),
 ) -> str:
-    print(data)
     ServiceUser.login_process(
         db,
         data,
