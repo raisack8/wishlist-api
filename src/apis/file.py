@@ -12,7 +12,12 @@ from ..services.file import ServiceFile
 router = APIRouter()
 
 
-@router.post("/file/upload", description="ファイルをアップロード")
+
+@router.post(
+    "/file/upload",
+    summary="/upload",
+    description="ファイルアップロードAPI<br>UploadFileクラスを特定のフォルダ(バケット)に保存する",
+)
 async def upload_file(upload_file: UploadFile = File(...)):
     if upload_file:
         file_bytes = upload_file.file
@@ -22,9 +27,14 @@ async def upload_file(upload_file: UploadFile = File(...)):
         upload_dir.close()
         return {"filenames": upload_file.filename}
 
-
+      
 @cached(cache=TTLCache(maxsize=10, ttl=3000))
-@router.post("/file/get-files", description="ファイルをダウンロード")
+
+@router.post(
+    "/file/get-files",
+    summary="/get-files",
+    description="ファイルダウンロードAPI<br>読み込みたいファイル一覧を受取り、バイナリ画像データリストを返す",
+)
 async def get_file(body: List[str]):
     return_dict = {}
     file_path = os.path.join(os.getcwd(), r"resources")
@@ -38,4 +48,4 @@ async def get_file(body: List[str]):
         except Exception as e:
             print(e)
             pass
-    return JSONResponse(content={"image_dict": return_dict})
+    return JSONResponse(content=return_dict)

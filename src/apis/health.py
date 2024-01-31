@@ -5,7 +5,8 @@ router = APIRouter()
 
 @router.get(
     "/health",
-    description="ヘルスチェック",
+    summary="/",
+    description="ヘルスチェックAPI",
 )
 async def health_check():
     return "status is OK"

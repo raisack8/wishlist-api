@@ -10,7 +10,12 @@ from ..services.user import UserCrud
 router = APIRouter()
 
 
-@router.post("/saving/history", response_model=None, description="貯金額を登録")
+@router.post(
+    "/saving/history",
+    response_model=None,
+    summary="/history",
+    description="貯金額登録API",
+)
 async def saving_history(
     data: PSavingHistory,
     db: Session = Depends(get_db),
@@ -22,7 +27,8 @@ async def saving_history(
 @router.get(
     "/saving/history_get/{sub}",
     response_model=list[GSavingHistoryList],
-    description="貯金歴を取得",
+    summary="/history_get/{sub}",
+    description="貯金歴一覧取得API",
 )
 async def get_saving_history_list(
     sub: str,
@@ -35,7 +41,8 @@ async def get_saving_history_list(
 @router.get(
     "/saving/amount/{sub}",
     response_model=int,
-    description="合計貯金額を取得",
+    summary="/amount/{sub}",
+    description="貯金合計額取得API",
 )
 async def get_saving_amount(
     sub: str,
