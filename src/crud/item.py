@@ -19,7 +19,6 @@ class ItemCrud:
                 uuid=user[0],
                 title=data.title,
                 price=data.price,
-                category=data.category,
                 memo=data.memo,
                 image_url=data.image_url,
             )
@@ -39,7 +38,6 @@ class ItemCrud:
             if wish_list:
                 wish_list.title = data.title
                 wish_list.price = data.price
-                wish_list.category = data.category
                 wish_list.memo = data.memo
                 wish_list.image_url = data.image_url
                 db.commit()
@@ -57,7 +55,6 @@ class ItemCrud:
                 TWishlist.id,
                 TWishlist.title,
                 TWishlist.price,
-                TWishlist.category,
                 TWishlist.image_url,
                 TWishlist.memo,
             ).join(TUser, TUser.sub == sub)[:10]
@@ -74,7 +71,6 @@ class ItemCrud:
                     TWishlist.id,
                     TWishlist.title,
                     TWishlist.price,
-                    TWishlist.category,
                     TWishlist.image_url,
                     TWishlist.memo,
                 )

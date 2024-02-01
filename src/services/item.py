@@ -23,7 +23,6 @@ class ServiceItem:
                 "id": item.id,
                 "name": item.title,
                 "price": item.price,
-                "category": item.category,
                 "image_url": item.image_url or "default.jpg",
                 "memo": item.memo,
             }
@@ -39,7 +38,6 @@ class ServiceItem:
             "id": item.id,
             "name": item.title,
             "price": item.price,
-            "category": item.category,
             "image_file_name": item.image_url,
             "image_url": ServiceFile.image_convert_to_binari(file_path, item.image_url),
             "memo": item.memo,
