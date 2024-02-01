@@ -9,7 +9,7 @@ class TWishlist(Base, OrgBaseModel):
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     uuid = Column(String, index=True, nullable=False)
     title = Column(String, index=True, nullable=False)
-    category = Column(String, index=True, nullable=False)
+    category = Column(String, index=True, nullable=True)
     price = Column(Integer, nullable=True, index=True)
     image_url = Column(String, nullable=True, index=True)
     group_id = Column(String, nullable=True, index=True)
