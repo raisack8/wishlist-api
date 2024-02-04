@@ -4,6 +4,7 @@ from sqlalchemy.exc import IntegrityError
 
 from ..models.t_wishlist import TWishlist
 from ..models.t_user import TUser
+from ..models.t_saving_history import TSavingHistory
 
 from ..schemas.requests.test_request import PReqData
 from ..schemas.requests.item_register import PReqItemRegister, PReqItemUpdate
@@ -12,6 +13,7 @@ from ..schemas.requests.item_register import PReqItemRegister, PReqItemUpdate
 class ItemCrud:
     def create_item_table(db: AsyncSession, data: PReqItemRegister) -> None:
         try:
+            print(data)
             # sub → uuid
             user = db.query(TUser.uuid).filter(TUser.sub == data.sub).first()
             # uuid → items
@@ -78,6 +80,37 @@ class ItemCrud:
                 .first()
             )
             return item
+        except Exception as e:
+            print(e)
+            db.rollback()
+            return False
+
+    def delete_item(db: AsyncSession, item_id: str):
+        try:
+            item = db.query(TWishlist).filter(TWishlist.id == int(item_id)).first()
+            db.delete(item)
+            db.commit()
+            db.close()
+            return True
+        except Exception as e:
+            print(e)
+            db.rollback()
+            return False
+
+    def purchase_item(db: AsyncSession, item_id: str, sub: str):
+        try:
+            item = db.query(TWishlist).filter(TWishlist.id == int(item_id)).first()
+            saving = db.query(TSavingHistory).join(TUser, TUser.sub == sub)[:10]
+
+            saving = TSavingHistory(
+                uuid=sub,
+                amount=item.price * -1,
+            )
+            db.add(saving)
+            db.delete(item)
+            db.commit()
+            db.close()
+            return True
         except Exception as e:
             print(e)
             db.rollback()

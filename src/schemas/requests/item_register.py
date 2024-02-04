@@ -16,3 +16,12 @@ class PReqItemUpdate(BaseModel):
     price: int
     memo: str
     image_url: str
+
+
+class PReqItemDelete(BaseModel):
+    id: int
+
+
+class PReqItemPurchase(BaseModel):
+    id: str
+    sub: str

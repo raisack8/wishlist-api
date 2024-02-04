@@ -43,3 +43,9 @@ class ServiceItem:
             "memo": item.memo,
         }
         return data
+
+    def item_delete(db: AsyncSession, item_id: str):
+        return ItemCrud.delete_item(db, item_id)
+
+    def item_purchase(db: AsyncSession, item_id: str, sub: str):
+        return ItemCrud.purchase_item(db, item_id, sub)
