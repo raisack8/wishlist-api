@@ -1,3 +1,4 @@
+from sqlalchemy import func
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
@@ -99,11 +100,18 @@ class ItemCrud:
 
     def purchase_item(db: AsyncSession, item_id: str, sub: str):
         try:
+            user = db.query(TUser.uuid).filter(TUser.sub == sub).first()
             item = db.query(TWishlist).filter(TWishlist.id == int(item_id)).first()
-            saving = db.query(TSavingHistory).join(TUser, TUser.sub == sub)[:10]
+            saving = db.query(TSavingHistory).join(TUser, TUser.sub == sub).all()
+
+            ssaving_amount = sum([sa.amount for sa in saving])
+
+            if ssaving_amount < item.price:
+                # 貯金額が足りない
+                return False
 
             saving = TSavingHistory(
-                uuid=sub,
+                uuid=user[0],
                 amount=item.price * -1,
             )
             db.add(saving)

@@ -92,5 +92,4 @@ async def item_purchase_by_item_id(
     data: PReqItemPurchase,
     db: Session = Depends(get_db),
 ):
-    item_delete_flg = ServiceItem.item_purchase(db, data.id, data.sub)
-    return None
+    return ServiceItem.item_purchase(db, data.id, data.sub)
