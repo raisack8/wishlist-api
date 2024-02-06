@@ -10,3 +10,6 @@ class ServiceUser:
 
     def get_uuid_by_sub(db: AsyncSession, data: PLineLoginInfo):
         return UserCrud.get_uuid_by_sub(db, data)
+
+    def data_reset(db: AsyncSession, sub: str):
+        UserCrud.data_reset(db, sub)

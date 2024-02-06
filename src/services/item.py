@@ -23,7 +23,6 @@ class ServiceItem:
                 "id": item.id,
                 "name": item.title,
                 "price": item.price,
-                "category": item.category,
                 "image_url": item.image_url or "default.jpg",
                 "memo": item.memo,
             }
@@ -39,9 +38,14 @@ class ServiceItem:
             "id": item.id,
             "name": item.title,
             "price": item.price,
-            "category": item.category,
             "image_file_name": item.image_url,
             "image_url": ServiceFile.image_convert_to_binari(file_path, item.image_url),
             "memo": item.memo,
         }
         return data
+
+    def item_delete(db: AsyncSession, item_id: str):
+        return ItemCrud.delete_item(db, item_id)
+
+    def item_purchase(db: AsyncSession, item_id: str, sub: str):
+        return ItemCrud.purchase_item(db, item_id, sub)
