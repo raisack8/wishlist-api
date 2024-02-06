@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import func, select
+from sqlalchemy import desc, func, select
 
 from ..models.t_saving_history import TSavingHistory
 from ..models.t_user import TUser
@@ -34,6 +34,7 @@ class SavingCrud:
                     TSavingHistory.created_at,
                 )
                 .filter(TUser.sub == sub)
+                .order_by(desc(TSavingHistory.created_at))
                 .all()
             )
             return items

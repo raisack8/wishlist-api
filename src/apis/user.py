@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from ..models.database import get_db
 from ..services.user import ServiceUser
-from ..schemas.requests.user import PLineLoginInfo
+from ..schemas.requests.user import PLineLoginInfo, PDataReset
 
 router = APIRouter()
 
@@ -21,4 +21,19 @@ async def login_process(
     ServiceUser.login_process(
         db,
         data,
+    )
+
+@router.post(
+    "/user/data-reset",
+    response_model=None,
+    summary="/data-reset",
+    description="ユーザーデータ削除API",
+)
+async def data_reset(
+    data: PDataReset,
+    db: Session = Depends(get_db),
+) -> str:
+    ServiceUser.data_reset(
+        db,
+        data.sub,
     )
