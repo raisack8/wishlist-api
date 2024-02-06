@@ -55,6 +55,8 @@ class UserCrud:
     def data_reset(db: AsyncSession, sub: str) -> None:
         try:
             user = db.query(TUser).filter(TUser.sub == sub).first()
+            if not user:
+                return
             item = delete(TWishlist).where(TWishlist.uuid == user.uuid)
             saving = delete(TSavingHistory).where(TSavingHistory.uuid == user.uuid)
             db.execute(item)
