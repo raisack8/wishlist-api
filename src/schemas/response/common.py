@@ -8,3 +8,8 @@ class Response(GenericModel, Generic[T1]):
     code: int
     message: str
     data: T1
+=======
+class Response(GenericModel, Generic[T1]):
+    code: int
+    message: str
+    data: T1
