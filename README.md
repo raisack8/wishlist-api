@@ -36,5 +36,6 @@ ses.commit()
 
 # black整形
 ```sh
+.venv/Scripts/activate
 black .
 ```

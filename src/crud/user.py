@@ -2,11 +2,14 @@ import datetime
 from uuid import uuid4
 
 from fastapi import HTTPException
+from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sqlalchemy.dialects.postgresql import insert
 
 from ..models.t_user import TUser
+from ..models.t_saving_history import TSavingHistory
+from ..models.t_wishlist import TWishlist
 
 from ..schemas.requests.user import PLineLoginInfo
 
@@ -48,3 +51,19 @@ class UserCrud:
             raise HTTPException(status_code=500, detail=str(e))
         finally:
             db.close()
+
+    def data_reset(db: AsyncSession, sub: str) -> None:
+        try:
+            user = db.query(TUser).filter(TUser.sub == sub).first()
+            if not user:
+                return
+            item = delete(TWishlist).where(TWishlist.uuid == user.uuid)
+            saving = delete(TSavingHistory).where(TSavingHistory.uuid == user.uuid)
+            db.execute(item)
+            db.execute(saving)
+            db.delete(user)
+            db.commit()
+            db.close()
+        except Exception as e:
+            print(e)
+            db.rollback()

@@ -2,7 +2,12 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from ..models.database import get_db
-from ..schemas.requests.item_register import PReqItemRegister, PReqItemUpdate
+from ..schemas.requests.item_register import (
+    PReqItemRegister,
+    PReqItemUpdate,
+    PReqItemDelete,
+    PReqItemPurchase,
+)
 from ..schemas.response.item_list_get import GItemGetList, GItemGet
 from ..services.item import ServiceItem
 from ..services.user import UserCrud
@@ -61,3 +66,30 @@ async def item_get_bt_item_id(
 ):
     result = ServiceItem.item_get(db, item_id)
     return result
+
+
+@router.post(
+    "/item/delete",
+    response_model=bool,
+    summary="/delete",
+    description="ITEM削除API",
+)
+async def item_delete_bt_item_id(
+    data: PReqItemDelete,
+    db: Session = Depends(get_db),
+):
+    item_delete_flg = ServiceItem.item_delete(db, data.id)
+    return item_delete_flg
+
+
+@router.post(
+    "/item/purchase",
+    response_model=None,
+    summary="/purchase",
+    description="ITEM購入API",
+)
+async def item_purchase_by_item_id(
+    data: PReqItemPurchase,
+    db: Session = Depends(get_db),
+):
+    return ServiceItem.item_purchase(db, data.id, data.sub)
